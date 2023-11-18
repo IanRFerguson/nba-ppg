@@ -1,23 +1,40 @@
 import logo from './logo.svg';
 import './App.css';
+import { useState, useEffect } from 'react';
 
 function App() {
+
+  const [teamNames, setTeamNames] = useState([]);
+
+  useEffect(() => {
+    fetch("get_team_names")
+    .then(
+      response => response.json()
+      .then(data => {
+        setTeamNames(data)
+      })
+    )
+  }, []);
+
+  let draw = (e) => {
+    console.log("DRAW")
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="teamSelection" id="teamSelection">
+        <h1>NBA Points Per Game</h1>
+        <select onChange={draw}>
+          <option value="nobody">Pick Your Team</option>
+          {
+            teamNames.map((team) =>
+            <option value={team.abbreviation}>
+              {team.full_name}
+            </option>)
+          }
+        </select>
+      </div>
+      <div></div>
     </div>
   );
 }
