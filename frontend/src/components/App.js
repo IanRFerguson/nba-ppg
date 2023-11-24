@@ -1,6 +1,7 @@
-import logo from './logo.svg';
-import './App.css';
-import { useState, useEffect } from 'react';
+import logo from '../static/logo.svg';
+import '../static/App.css';
+import { useEffect, useState } from 'react';
+import { fetchTeamData } from '../utils/getTeamStats';
 
 function App() {
 
@@ -11,20 +12,19 @@ function App() {
     .then(
       response => response.json()
       .then(data => {
-        setTeamNames(data)
-      })
-    )
-  }, []);
+          setTeamNames(data)
+      }))
+    }, []);
 
-  let draw = (e) => {
-    console.log("DRAW")
+  let handleTeamChange = (e) => {
+    let teamData = fetchTeamData(e.target.value);
   }
 
   return (
     <div className="App">
       <div className="teamSelection" id="teamSelection">
         <h1>NBA Points Per Game</h1>
-        <select onChange={draw}>
+        <select onChange={handleTeamChange}>
           <option value="nobody">Pick Your Team</option>
           {
             teamNames.map((team) =>
