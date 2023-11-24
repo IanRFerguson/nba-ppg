@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import { useState, useEffect } from 'react';
 
@@ -8,12 +7,12 @@ function App() {
 
   useEffect(() => {
     fetch("get_team_names")
-    .then(
-      response => response.json()
-      .then(data => {
-        setTeamNames(data)
-      })
-    )
+      .then(
+        response => response.json()
+          .then(data => {
+            setTeamNames(data)
+          })
+      )
   }, []);
 
   let draw = (e) => {
@@ -28,9 +27,9 @@ function App() {
           <option value="nobody">Pick Your Team</option>
           {
             teamNames.map((team) =>
-            <option value={team.abbreviation}>
-              {team.full_name}
-            </option>)
+              <option value={team.abbreviation}>
+                {team.full_name}
+              </option>)
           }
         </select>
       </div>
