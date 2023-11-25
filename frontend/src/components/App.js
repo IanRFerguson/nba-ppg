@@ -2,6 +2,7 @@ import logo from '../static/logo.svg';
 import '../static/App.css';
 import { useEffect, useState } from 'react';
 import { fetchTeamData } from '../utils/getTeamStats';
+import { drawChart, clearChart } from '../utils/chart';
 
 function App() {
 
@@ -17,7 +18,14 @@ function App() {
   }, []);
 
   let handleTeamChange = (e) => {
-    let teamData = fetchTeamData(e.target.value);
+    // Clear chart
+    clearChart();
+
+    // Call Flask API and render chart
+    fetchTeamData(e.target.value)
+      .then(
+        data => { drawChart(data) }
+      )
   }
 
   return (
@@ -34,7 +42,7 @@ function App() {
           }
         </select>
       </div>
-      <div></div>
+      <div id="teamChart"></div>
     </div>
   );
 }

@@ -7,9 +7,6 @@ export async function fetchTeamData(team) {
     // Render JSON response object
     const stats = await response.json();
 
-    if (stats) {
-        console.log(stats)
-    }
-
     return stats
 }
+
