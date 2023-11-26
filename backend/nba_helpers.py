@@ -65,6 +65,7 @@ def get_team_ppg(team_initials: str):
 
     # Reduce to relevant columns
     team_data = team_data.loc[:, ["date", "points",  "opponent", "opponent_points"]]
+    team_data["date"] = pd.to_datetime(team_data["date"])
 
     # Drop nulls
     team_data.dropna(inplace=True)

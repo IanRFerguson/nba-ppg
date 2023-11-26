@@ -8,6 +8,9 @@ export function clearChart() {
 export function drawChart(data) {
     // Get list of integers from API response
     var points = data.map(({ points }) => parseInt(points));
+    var dates = data.map(({ date }) => Date.parse(date));
+
+    console.log(dates)
 
     // Chart metadata
     var margin = { top: 25, right: 30, bottom: 30, left: 60 },
@@ -24,8 +27,8 @@ export function drawChart(data) {
             "translate(" + margin.left + "," + margin.top + ")");
 
     // X axis
-    var x = d3.scaleLinear()
-        .domain([0, points.length])
+    var x = d3.scaleTime()
+        .domain(d3.extent(data, function (d) { return d3.timeParse("%Y-%m-%d")(d.date) }))
         .range([0, width])
 
 
@@ -41,18 +44,14 @@ export function drawChart(data) {
     svg.append("g")
         .call(d3.axisLeft(y));
 
-    // Apply line function to svg
-    var lineFunction = d3.line()
-        .x(function (d, index) {
-            return x(index)
-        })
-        .y(function (d) {
-            return y(d)
-        })
-
+    // Line it up!
     svg.append("path")
-        .attr("d", lineFunction(points))
+        .datum(data)
         .attr("fill", "none")
         .attr("stroke", "steelblue")
         .attr("stroke-width", 1.5)
+        .attr("d", d3.line()
+            .x(function (d) { return x(d3.timeParse("%Y-%m-%d")(d.date)) })
+            .y(function (d) { return y(parseInt(d.points)) })
+        )
 }
