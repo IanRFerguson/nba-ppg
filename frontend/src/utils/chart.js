@@ -6,16 +6,13 @@ export function clearChart() {
 }
 
 export function drawChart(data) {
-    console.log(data)
-
     // Get list of integers from API response
     var points = data.map(({ points }) => parseInt(points));
-    console.log(points)
 
     // Chart metadata
-    var margin = { top: 10, right: 30, bottom: 30, left: 60 },
-        width = 700 - margin.left - margin.right,
-        height = 700 - margin.top - margin.bottom;
+    var margin = { top: 25, right: 30, bottom: 30, left: 60 },
+        width = 1500 - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
 
     // Create empty SVG to append details into
     var svg = d3.select("#teamChart")
@@ -31,6 +28,7 @@ export function drawChart(data) {
         .domain([0, points.length])
         .range([0, width])
 
+
     svg.append("g")
         .attr("transform", "translate(0," + height + ")")
         .call(d3.axisBottom(x));
@@ -43,6 +41,7 @@ export function drawChart(data) {
     svg.append("g")
         .call(d3.axisLeft(y));
 
+    // Apply line function to svg
     var lineFunction = d3.line()
         .x(function (d, index) {
             return x(index)
