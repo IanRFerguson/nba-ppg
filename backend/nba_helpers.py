@@ -47,6 +47,9 @@ def get_team_ppg(team_initials: str):
     # Read HTML table as DF
     team_data = pd.read_html(url)[0]
 
+    # Remove extra rows
+    team_data = team_data[team_data["Tm"] != "Tm"]
+
     # Clean up relevant columns
     team_data.rename(
         columns={
@@ -65,6 +68,9 @@ def get_team_ppg(team_initials: str):
 
     # Reduce to relevant columns
     team_data = team_data.loc[:, ["points", "opponent_points", "build_string"]]
+
+    # Drop nulls
+    team_data.dropna(inplace=True)
 
     return team_data.to_dict("records")
 
