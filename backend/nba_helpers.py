@@ -64,7 +64,7 @@ def get_team_ppg(team_initials: str):
     team_data.columns = [x.lower() for x in team_data.columns]
 
     # Reduce to relevant columns
-    team_data = team_data.loc[:, ["points", "opponent_points", "build_string"]]
+    team_data = team_data.loc[:, ["date", "points",  "opponent", "opponent_points"]]
 
     # Drop nulls
     team_data.dropna(inplace=True)
