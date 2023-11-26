@@ -5,7 +5,19 @@ export function clearChart() {
     d3.select("#teamChart").selectAll("*").remove();
 }
 
+function setHeader(data, average) {
+}
+
 export function drawChart(data) {
+    // Unpack response object
+    var metadata = data["meta"];
+    var stats = data["stats"];
+
+    var ppg = stats.map(({ points }) => points);
+    var averagePPG = ppg.reduce((a, b) => a + b, 0) / ppg.length;
+
+    setHeader(metadata, averagePPG);
+
     // Chart metadata
     var margin = { top: 25, right: 30, bottom: 30, left: 60 },
         width = 1500 - margin.left - margin.right,
@@ -22,7 +34,7 @@ export function drawChart(data) {
 
     // X axis
     var x = d3.scaleTime()
-        .domain(d3.extent(data, function (d) { return Date.parse(d.date) }))
+        .domain(d3.extent(stats, function (d) { return Date.parse(d.date) }))
         .range([0, width])
 
     svg.append("g")
@@ -37,11 +49,9 @@ export function drawChart(data) {
     svg.append("g")
         .call(d3.axisLeft(y));
 
-    console.log(data)
-
     // Line it up!
     svg.append("path")
-        .datum(data)
+        .datum(stats)
         .attr("fill", "none")
         .attr("stroke", "steelblue")
         .attr("stroke-width", 3.5)
