@@ -6,6 +6,10 @@ export function clearChart() {
 }
 
 function setHeader(data, average) {
+    console.log(data);
+    var div = document.getElementById("teamChart");
+    div.innerHTML += `<h2>${data[0].full_name}</h2>`;
+    div.innerHTML += `<p>Season average: ${average} points</p>`
 }
 
 export function drawChart(data) {
@@ -13,7 +17,7 @@ export function drawChart(data) {
     var metadata = data["meta"];
     var stats = data["stats"];
 
-    var ppg = stats.map(({ points }) => points);
+    var ppg = stats.map(({ points }) => parseInt(points));
     var averagePPG = ppg.reduce((a, b) => a + b, 0) / ppg.length;
 
     setHeader(metadata, averagePPG);
