@@ -5,9 +5,24 @@ export function clearChart() {
     d3.select("#teamChart").selectAll("*").remove();
 }
 
+function setHeader(data, average) {
+    console.log(data);
+    var div = document.getElementById("teamChart");
+    div.innerHTML += `<h2>${data.full_name}</h2>`;
+    div.innerHTML += `<p>Season average: ${average} points</p>`
+}
+
 export function drawChart(data) {
-    // Get list of integers from API response
-    var points = data.map(({ points }) => parseInt(points));
+    // Unpack response object
+    var metadata = data["meta"];
+    var stats = data["stats"];
+    var lineColor = metadata.line_color;
+    var backgroundColor = metadata.background_color;
+
+    var ppg = stats.map(({ points }) => parseInt(points));
+    var averagePPG = ppg.reduce((a, b) => a + b, 0) / ppg.length;
+
+    setHeader(metadata, averagePPG);
 
     // Chart metadata
     var margin = { top: 25, right: 30, bottom: 30, left: 60 },
@@ -24,10 +39,9 @@ export function drawChart(data) {
             "translate(" + margin.left + "," + margin.top + ")");
 
     // X axis
-    var x = d3.scaleLinear()
-        .domain([0, points.length])
+    var x = d3.scaleTime()
+        .domain(d3.extent(stats, function (d) { return Date.parse(d.date) }))
         .range([0, width])
-
 
     svg.append("g")
         .attr("transform", "translate(0," + height + ")")
@@ -41,18 +55,14 @@ export function drawChart(data) {
     svg.append("g")
         .call(d3.axisLeft(y));
 
-    // Apply line function to svg
-    var lineFunction = d3.line()
-        .x(function (d, index) {
-            return x(index)
-        })
-        .y(function (d) {
-            return y(d)
-        })
-
+    // Line it up!
     svg.append("path")
-        .attr("d", lineFunction(points))
+        .datum(stats)
         .attr("fill", "none")
-        .attr("stroke", "steelblue")
-        .attr("stroke-width", 1.5)
+        .attr("stroke", lineColor)
+        .attr("stroke-width", 3.5)
+        .attr("d", d3.line()
+            .x(function (d) { return x(Date.parse(d.date)) })
+            .y(function (d) { return y(parseInt(d.points)) })
+        );
 }

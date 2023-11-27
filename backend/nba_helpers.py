@@ -63,11 +63,9 @@ def get_team_ppg(team_initials: str):
     # Cast all to lowercase
     team_data.columns = [x.lower() for x in team_data.columns]
 
-    # Build string of display information
-    team_data["build_string"] = team_data.apply(build_cursor_string, axis=1)
-
     # Reduce to relevant columns
-    team_data = team_data.loc[:, ["points", "opponent_points", "build_string"]]
+    team_data = team_data.loc[:, ["date", "points",  "opponent", "opponent_points"]]
+    team_data["date"] = pd.to_datetime(team_data["date"])
 
     # Drop nulls
     team_data.dropna(inplace=True)
@@ -87,28 +85,3 @@ def get_nba_season(month: str):
 
     return base_year
 
-
-def convert_nba_date_to_utc(date: str):
-    """
-    Converts string date representation to datetime
-    """
-
-    return datetime.strptime(date, "%a, %b %d, %Y")
-
-
-def build_cursor_string(df: pd.DataFrame):
-    """
-    Creates a new string out of many columns. This is
-    what the user will see when they hover over
-    the D3 lineplot
-    """
-
-    base = "{} against the {} on {} [{} to {}]"
-
-    return base.format(
-        df["status"],
-        df["opponent"],
-        df["date"],
-        df["points"],
-        df["opponent_points"],  # noeq
-    )

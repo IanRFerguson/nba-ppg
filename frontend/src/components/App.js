@@ -42,7 +42,9 @@ function App() {
           }
         </select>
       </div>
-      <div id="teamChart"></div>
+      <div id="teamChart">
+        <div id="teamMetadata"></div>
+      </div>
     </div>
   );
 }

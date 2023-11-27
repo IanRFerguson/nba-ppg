@@ -33,8 +33,16 @@ def get_team_points_per_game(team_initials: str):
     Passes off list of timestamp / points per game
     """
 
-    from nba_helpers import get_team_ppg
+    from nba_helpers import get_team_ppg, get_all_teams_metadata
+    from nba_colors import NBA_COLORS
 
     team_stats = get_team_ppg(team_initials=team_initials)
+    team_metadata = [x for x in get_all_teams_metadata() if x["abbreviation"] == team_initials][0]
 
-    return jsonify(team_stats)
+    team_colors = NBA_COLORS[team_initials]
+    team_metadata["line_color"] = team_colors["line"]
+    team_metadata["background_color"] = team_colors["background"]
+
+    output = {"meta": team_metadata, "stats": team_stats}
+
+    return jsonify(output)
