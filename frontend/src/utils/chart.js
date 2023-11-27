@@ -8,7 +8,7 @@ export function clearChart() {
 function setHeader(data, average) {
     console.log(data);
     var div = document.getElementById("teamChart");
-    div.innerHTML += `<h2>${data[0].full_name}</h2>`;
+    div.innerHTML += `<h2>${data.full_name}</h2>`;
     div.innerHTML += `<p>Season average: ${average} points</p>`
 }
 
@@ -16,6 +16,8 @@ export function drawChart(data) {
     // Unpack response object
     var metadata = data["meta"];
     var stats = data["stats"];
+    var lineColor = metadata.line_color;
+    var backgroundColor = metadata.background_color;
 
     var ppg = stats.map(({ points }) => parseInt(points));
     var averagePPG = ppg.reduce((a, b) => a + b, 0) / ppg.length;
@@ -57,10 +59,10 @@ export function drawChart(data) {
     svg.append("path")
         .datum(stats)
         .attr("fill", "none")
-        .attr("stroke", "steelblue")
+        .attr("stroke", lineColor)
         .attr("stroke-width", 3.5)
         .attr("d", d3.line()
             .x(function (d) { return x(Date.parse(d.date)) })
             .y(function (d) { return y(parseInt(d.points)) })
-        )
+        );
 }
