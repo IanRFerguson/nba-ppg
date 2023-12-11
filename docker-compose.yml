@@ -6,8 +6,6 @@ services:
     environment:
       - FLASK_APP=main.py
       - FLASK_ENV=development 
-    ports:
-      - "5001:5001"
   client:
     build:
       context: .
