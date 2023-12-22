@@ -28,6 +28,23 @@
   color: #61dafb;
 }
 
+/* Tooltip */
+rect {
+  pointer-events: all;
+  fill-opacity: 0;
+  stroke-opacity: 0;
+  z-index: 1;
+}
+
+.tooltip {
+  position: absolute;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 10px;
+  display: none;
+  opacity: .75;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

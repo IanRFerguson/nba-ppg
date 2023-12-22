@@ -12,6 +12,7 @@ function setHeader(data, average) {
 }
 
 export function drawChart(data) {
+    console.log(data);
     // Unpack response object
     var metadata = data["meta"];
     var stats = data["stats"];
@@ -48,7 +49,8 @@ export function drawChart(data) {
 
     // Y axis
     var y = d3.scaleLinear()
-        .domain([50, 150])
+        // TODO - This could be dynamic
+        .domain([50, 165])
         .range([height, 0])
 
     svg.append("g")
@@ -65,23 +67,23 @@ export function drawChart(data) {
         .style("border-radius", "5px")
         .style("padding", "10px")
 
-    var mouseover = function(d) {
+    var mouseover = function (d) {
         tooltip
-        .style("opacity", 1)
+            .style("opacity", 1)
     }
 
-    var mousemove = function(d) {
+    var mousemove = function (d) {
         tooltip
-        .html("Opponent: " + d.opponent)
-        .style("left", (d3.pointer(this)[0]+90) + "px") 
-        .style("top", (d3.pointer(this)[1]) + "px")
+            .html("Opponent: " + d.opponent)
+            .style("left", (d3.pointer(this)[0] + 90) + "px")
+            .style("top", (d3.pointer(this)[1]) + "px")
     }
 
-    var mouseleave = function(d) {
+    var mouseleave = function (d) {
         tooltip
-        .transition()
-        .duration(200)
-        .style("opacity", 0)
+            .transition()
+            .duration(200)
+            .style("opacity", 0)
     }
 
     // Line it up!
@@ -94,7 +96,7 @@ export function drawChart(data) {
             .x(function (d) { return x(Date.parse(d.date)) })
             .y(function (d) { return y(parseInt(d.points)) })
         )
-        .on("mouseover", mouseover )
-        .on("mousemove", mousemove )
-        .on("mouseleave", mouseleave ) 
+        .on("mouseover", mouseover)
+        .on("mousemove", mousemove)
+        .on("mouseleave", mouseleave)
 }
