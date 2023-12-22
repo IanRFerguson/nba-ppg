@@ -13,17 +13,25 @@ function setHeader(data, average) {
 
 export function drawChart(data) {
     console.log(data);
+
+    /*   Parse incoming objects   */
     // Unpack response object
     var metadata = data["meta"];
     var stats = data["stats"];
-    var lineColor = metadata.line_color;
-    var backgroundColor = metadata.background_color;
 
+    // Get a random color from the metadata object
+    var chartColors = [metadata.line_color, metadata.background_color];
+    var color_ = chartColors[Math.floor(Math.random() * chartColors.length)];
+
+
+    /*   Calculate team average and set chart title   */
     var ppg = stats.map(({ points }) => parseInt(points));
     var averagePPG = ppg.reduce((a, b) => a + b, 0) / ppg.length;
 
     setHeader(metadata, averagePPG);
 
+
+    /*   Define shape of chart   */
     // Chart metadata
     var margin = { top: 25, right: 30, bottom: 30, left: 60 },
         width = 1500 - margin.left - margin.right,
@@ -38,6 +46,8 @@ export function drawChart(data) {
         .attr("transform",
             "translate(" + margin.left + "," + margin.top + ")");
 
+
+    /*   Define chart axes   */
     // X axis
     var x = d3.scaleTime()
         .domain(d3.extent(stats, function (d) { return Date.parse(d.date) }))
@@ -56,6 +66,8 @@ export function drawChart(data) {
     svg.append("g")
         .call(d3.axisLeft(y));
 
+
+    /*   Setup dynamic components of chart   */
     // Tooltip
     var tooltip = d3.select("#teamChart")
         .append("div")
@@ -86,11 +98,12 @@ export function drawChart(data) {
             .style("opacity", 0)
     }
 
-    // Line it up!
+
+    /*   Add path to the SVG   */
     svg.append("path")
         .datum(stats)
         .attr("fill", "none")
-        .attr("stroke", lineColor)
+        .attr("stroke", color_)
         .attr("stroke-width", 3.5)
         .attr("d", d3.line()
             .x(function (d) { return x(Date.parse(d.date)) })
