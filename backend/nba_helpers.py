@@ -64,7 +64,7 @@ def get_team_ppg(team_initials: str):
     team_data.columns = [x.lower() for x in team_data.columns]
 
     # Reduce to relevant columns
-    team_data = team_data.loc[:, ["date", "points",  "opponent", "opponent_points"]]
+    team_data = team_data.loc[:, ["date", "points", "opponent", "opponent_points"]]
     team_data["date"] = pd.to_datetime(team_data["date"])
 
     # Drop nulls
@@ -84,4 +84,3 @@ def get_nba_season(month: str):
         return base_year + 1
 
     return base_year
-

@@ -36,9 +36,18 @@ def get_team_points_per_game(team_initials: str):
     from nba_helpers import get_team_ppg, get_all_teams_metadata
     from nba_colors import NBA_COLORS
 
-    team_stats = get_team_ppg(team_initials=team_initials)
-    team_metadata = [x for x in get_all_teams_metadata() if x["abbreviation"] == team_initials][0]
+    # NOTE - There are few a team initials mismatches between the NBA API and
+    # Basketball Reference ... this handles that discrepancy 
+    team_inital_dict = {"BKN": "BRK", "PHL": "PHI", "PHX": "PHO", "CHA": "CHO"}
 
+    if team_initials in team_inital_dict.keys():
+        team_stats = get_team_ppg(team_initials=team_inital_dict[team_initials])
+    else:
+        team_stats = get_team_ppg(team_initials=team_initials)
+
+    team_metadata = [
+        x for x in get_all_teams_metadata() if x["abbreviation"] == team_initials
+    ][0]
     team_colors = NBA_COLORS[team_initials]
     team_metadata["line_color"] = team_colors["line"]
     team_metadata["background_color"] = team_colors["background"]

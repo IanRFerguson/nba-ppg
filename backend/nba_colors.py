@@ -1,7 +1,7 @@
 NBA_COLORS = {
-    "MIA": {"line":"#98002e", "background": "#f9a01b"},
-    "LAL": {"line":"#552583", "background": "#f9a01b"},
-    "BOS": {"line":"#007a33", "background": "#ba9653"},
+    "MIA": {"line": "#98002e", "background": "#f9a01b"},
+    "LAL": {"line": "#552583", "background": "#f9a01b"},
+    "BOS": {"line": "#007a33", "background": "#ba9653"},
     "LAC": {"line": "#1d428a", "background": "#bec0c2"},
     "BKN": {"line": "#000000", "background": "#c6cfd4"},
     "CLT": {"line": "#1d1160", "background": "#00788c"},
