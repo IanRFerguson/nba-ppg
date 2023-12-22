@@ -29,9 +29,11 @@ export function drawChart(data) {
 
     /*   Calculate team average and set chart title   */
     var ppg = stats.map(({ points }) => parseInt(points));
-    var averagePPG = ppg.reduce((a, b) => a + b, 0) / ppg.length;
+    var longAverage = ppg.reduce((a, b) => a + b, 0) / ppg.length;
+    var shortAverage = Math.round((longAverage + Number.EPSILON) * 100) / 100
 
-    setHeader(metadata, averagePPG);
+    // Set chart title
+    setHeader(metadata, shortAverage);
 
 
     /*   Define shape of chart   */
