@@ -38,7 +38,7 @@ def get_team_points_per_game(team_initials: str):
 
     # NOTE - There are few a team initials mismatches between the NBA API and
     # Basketball Reference ... this handles that discrepancy 
-    team_inital_dict = {"BKN": "BRK", "PHL": "PHI", "PHX": "PHO", "CHA": "CHO"}
+    team_inital_dict = {"BKN": "BRK", "PHX": "PHO", "CHA": "CHO"}
 
     if team_initials in team_inital_dict.keys():
         team_stats = get_team_ppg(team_initials=team_inital_dict[team_initials])

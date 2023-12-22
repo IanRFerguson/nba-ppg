@@ -21,7 +21,7 @@ NBA_COLORS = {
     "NYK": {"line": "#f58426", "background": "#006bb6"},
     "OKC": {"line": "#ef3b24", "background": "#007ac1"},
     "ORL": {"line": "#0077c0", "background": "#c4ced4"},
-    "PHL": {"line": "#ed174c", "background": "#006bb6"},
+    "PHI": {"line": "#ed174c", "background": "#006bb6"},
     "POR": {"line": "#000000", "background": "#e03a3e"},
     "SAC": {"line": "#5a2d81", "background": "#63727a"},
     "SAS": {"line": "#000000", "background": "#c4ced4"},
@@ -29,4 +29,5 @@ NBA_COLORS = {
     "UTA": {"line": "#002b5c", "background": "#f9a01b"},
     "CLE": {"line": "#860038", "background": "#041e42"},
     "WAS": {"line": "#e31837", "background": "#c4ced4"},
+    "CHA": {"line": "#1D1160", "background": "#00788C"}
 }
