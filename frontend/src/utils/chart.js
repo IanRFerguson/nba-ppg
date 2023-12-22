@@ -1,15 +1,18 @@
 import * as d3 from 'd3';
 
+
 export function clearChart() {
     console.log("Wiping D3 chart...")
     d3.select("#teamChart").selectAll("*").remove();
 }
+
 
 function setHeader(data, average) {
     var div = document.getElementById("teamChart");
     div.innerHTML += `<h2>${data.full_name}</h2>`;
     div.innerHTML += `<p>Season average: ${average} points</p>`
 }
+
 
 export function drawChart(data) {
     console.log(data);
@@ -69,37 +72,33 @@ export function drawChart(data) {
 
     /*   Setup dynamic components of chart   */
     // Tooltip
-    var tooltip = d3.select("#teamChart")
+    const Tooltip = d3.select("#teamChart")
         .append("div")
         .style("opacity", 0)
         .attr("class", "tooltip")
         .style("background-color", "white")
         .style("border", "solid")
-        .style("border-width", "1px")
+        .style("border-width", "2px")
         .style("border-radius", "5px")
-        .style("padding", "10px")
+        .style("padding", "5px")
 
-    var mouseover = function (d) {
-        tooltip
+    const mouseover = function (event, d) {
+        Tooltip
             .style("opacity", 1)
     }
-
-    var mousemove = function (d) {
-        tooltip
-            .html("Opponent: " + d.opponent)
-            .style("left", (d3.pointer(this)[0] + 90) + "px")
-            .style("top", (d3.pointer(this)[1]) + "px")
+    const mousemove = function (event, d) {
+        Tooltip
+            .html(`<b>Points:</b> ${d.points}<br><b>Opponent:</b> ${d.opponent}<br><b>Opponent Points:</b> ${d.opponent_points}`)
+            .style("left", `${event.layerX + 10}px`)
+            .style("top", `${event.layerY}px`)
     }
-
-    var mouseleave = function (d) {
-        tooltip
-            .transition()
-            .duration(200)
+    const mouseleave = function (event, d) {
+        Tooltip
             .style("opacity", 0)
     }
 
 
-    /*   Add path to the SVG   */
+    /*   Add line to SVG   */
     svg.append("path")
         .datum(stats)
         .attr("fill", "none")
@@ -109,6 +108,19 @@ export function drawChart(data) {
             .x(function (d) { return x(Date.parse(d.date)) })
             .y(function (d) { return y(parseInt(d.points)) })
         )
+
+
+    /*   Add points to SVG   */
+    svg.append("g")
+        .selectAll("dot")
+        .data(stats)
+        .enter()
+        .append("circle")
+        .attr("cx", function (d) { return x(Date.parse(d.date)) })
+        .attr("cy", function (d) { return y(parseInt(d.points)) })
+        .attr("r", 5)
+        .attr("fill", color_)
+        .attr("class", "ppg_circle")
         .on("mouseover", mouseover)
         .on("mousemove", mousemove)
         .on("mouseleave", mouseleave)
