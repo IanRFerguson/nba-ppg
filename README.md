@@ -18,5 +18,8 @@ cd frontend && npm run start
 ## React Frontend
 * This application receives data from the API and visualizes it in a D3 line chart
 
-## TODO List
-* Sure would be nice to use an API rather than web scraping, but we'll do what we can
+## Running TODO List
+- [ ] - Add tooltip to lineplot
+- [ ] - Add NBA team logos to render
+- [ ] - Dockerize microservices
+- [ ] - Clean up sizing if possible
