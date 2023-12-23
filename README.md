@@ -1,6 +1,10 @@
 # NBA Points Per Game Visualization
 This is a full-stack application to query Basketball Reference and visualize how many points a team has scored
 
+<img src="./img/nyk.png" width=65%>
+
+
+
 ```
 # Run in docker
 docker compose up --build -d
