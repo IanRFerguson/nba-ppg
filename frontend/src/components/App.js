@@ -1,4 +1,3 @@
-import logo from '../static/logo.svg';
 import '../static/App.css';
 import { useEffect, useState } from 'react';
 import { fetchTeamData } from '../utils/getTeamStats';

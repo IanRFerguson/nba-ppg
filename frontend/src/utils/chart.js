@@ -1,4 +1,5 @@
 import * as d3 from 'd3';
+import { getTeamLogo } from '../components/Logo';
 
 
 export function clearChart() {
@@ -8,6 +9,8 @@ export function clearChart() {
 
 
 function setHeader(data, average) {
+    var teamLogo = getTeamLogo(data.abbreviation)
+
     var div = document.getElementById("teamChart");
     div.innerHTML += `<h2>${data.full_name}</h2>`;
     div.innerHTML += `<p>Season average: ${average} points</p>`
