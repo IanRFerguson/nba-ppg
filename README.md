@@ -19,7 +19,7 @@ cd frontend && npm run start
 * This application receives data from the API and visualizes it in a D3 line chart
 
 ## Running TODO List
-- [ ] - Add tooltip to lineplot
-- [ ] - Add NBA team logos to render
+- [x] - Add tooltip to lineplot
+- [x] - Add NBA team logos to render
 - [ ] - Dockerize microservices
 - [ ] - Clean up sizing if possible
