@@ -2,10 +2,14 @@ import '../static/App.css';
 import { useEffect, useState } from 'react';
 import { fetchTeamData } from '../utils/getTeamStats';
 import { drawChart, clearChart } from '../utils/chart';
+import { TeamLogo } from './TeamLogo';
+
 
 function App() {
 
   const [teamNames, setTeamNames] = useState([]);
+  const [TL, setTeamLogo] = useState('');
+
 
   useEffect(() => {
     fetch("get_team_names")
@@ -16,9 +20,13 @@ function App() {
           }))
   }, []);
 
+
+
   let handleTeamChange = (e) => {
     // Clear chart
     clearChart();
+
+    setTeamLogo(TeamLogo(e.target.value))
 
     // Call Flask API and render chart
     fetchTeamData(e.target.value)
@@ -26,6 +34,7 @@ function App() {
         data => { drawChart(data) }
       )
   }
+
 
   return (
     <div className="App">
@@ -41,11 +50,13 @@ function App() {
           }
         </select>
       </div>
-      <div id="teamChart">
-        <div id="teamMetadata"></div>
+      <div id="teamLogo">
+        {TL}
       </div>
+      <div id="teamChart"></div>
     </div>
   );
 }
+
 
 export default App;
