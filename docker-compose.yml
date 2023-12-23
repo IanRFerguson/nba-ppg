@@ -7,12 +7,16 @@ services:
       - FLASK_APP=main.py
       - FLASK_ENV=development
     ports:
-      - "5001:5001" 
+      - "5000:5000"
+    volumes:
+      - ./backend:/backend/
   client:
     build:
       context: .
       dockerfile: Dockerfile.frontend
     ports:
       - "3000:3000"
+    volumes:
+      - ./frontend:/frontend/
     depends_on:
       - api

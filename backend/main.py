@@ -58,4 +58,4 @@ def get_team_points_per_game(team_initials: str):
 
 
 if __name__ == "__main__":
-    api.run(host="0.0.0.0", port=5001)
+    api.run()
