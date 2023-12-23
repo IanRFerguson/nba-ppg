@@ -8,15 +8,13 @@ export function clearChart() {
 
 
 function setHeader(data, average) {
-    var div = document.getElementById("teamChart");
-    div.innerHTML += `<h2>${data.full_name}</h2>`;
-    div.innerHTML += `<p>Season average: ${average} points</p>`
+    var chartDiv = document.getElementById("teamChart");
+    chartDiv.innerHTML += `<h2>${data.full_name}</h2>`;
+    chartDiv.innerHTML += `<p>Season average: ${average} points</p>`
 }
 
 
 export function drawChart(data) {
-    console.log(data);
-
     /*   Parse incoming objects   */
     // Unpack response object
     var metadata = data["meta"];
