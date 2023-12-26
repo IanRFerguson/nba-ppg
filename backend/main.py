@@ -55,7 +55,3 @@ def get_team_points_per_game(team_initials: str):
     output = {"meta": team_metadata, "stats": team_stats}
 
     return jsonify(output)
-
-
-if __name__ == "__main__":
-    api.run(host="0.0.0.0", port=5000, debug=True)
