@@ -1,8 +1,11 @@
+version: '3'
+
 services:
   api:
     build:
       context: .
       dockerfile: Dockerfile.backend
+    command: flask --debug run --host=0.0.0.0 --port=5000
     environment:
       - FLASK_APP=main.py
       - FLASK_ENV=development
@@ -10,6 +13,7 @@ services:
       - "5000:5000"
     volumes:
       - ./backend:/backend/
+
   client:
     build:
       context: .
@@ -18,5 +22,7 @@ services:
       - "3000:3000"
     volumes:
       - ./frontend:/frontend/
+    links:
+      - api
     depends_on:
       - api
