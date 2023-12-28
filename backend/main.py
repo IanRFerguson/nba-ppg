@@ -1,9 +1,9 @@
 from flask import Flask, jsonify
 
-api = Flask(__name__)
+api = Flask(__name__, static_folder="../build", static_url_path="/")
 
 
-@api.route("/")
+@api.route("/test")
 def index():
     """
     Landing route, only speaks the truth

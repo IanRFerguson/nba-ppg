@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: deploy/Dockerfile.backend
+    environment:
+      - FLASK_APP=main.py
+      - FLASK_ENV=development
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend:/backend/
+  client:
+    build:
+      context: .
+      dockerfile: deploy/Dockerfile.frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/frontend/
+    links:
+      - api
+    depends_on:
+      - api
