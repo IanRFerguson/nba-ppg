@@ -7,12 +7,12 @@ This is a full-stack application to query Basketball Reference and visualize how
 
 ```
 # Run in docker
-docker compose up --build -d
+docker compose up --build
 
 # Run microservices separately
 cd backend && flask run
 
-# In a separate terminal...
+# In a separate terminal window...
 cd frontend && npm run start
 ```
 
@@ -21,9 +21,3 @@ cd frontend && npm run start
 
 ## React Frontend
 * This application receives data from the API and visualizes it in a D3 line chart
-
-## Running TODO List
-- [x] - Add tooltip to lineplot
-- [x] - Add NBA team logos to render
-- [ ] - Dockerize microservices
-- [ ] - Clean up sizing if possible

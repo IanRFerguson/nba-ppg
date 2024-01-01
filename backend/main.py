@@ -1,9 +1,19 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template
 
-api = Flask(__name__)
+api = Flask(
+    __name__,
+    static_folder="../frontend/build",
+    static_url_path="/",
+    template_folder="../frontend/build",
+)
 
 
 @api.route("/")
+def serve():
+    return render_template("index.html")
+
+
+@api.route("/bingbong")
 def index():
     """
     Landing route, only speaks the truth
@@ -37,7 +47,7 @@ def get_team_points_per_game(team_initials: str):
     from nba_colors import NBA_COLORS
 
     # NOTE - There are few a team initials mismatches between the NBA API and
-    # Basketball Reference ... this handles that discrepancy 
+    # Basketball Reference ... this handles that discrepancy
     team_inital_dict = {"BKN": "BRK", "PHX": "PHO", "CHA": "CHO"}
 
     if team_initials in team_inital_dict.keys():
