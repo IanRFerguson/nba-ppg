@@ -12,7 +12,7 @@ docker compose up --build
 # Run microservices separately
 cd backend && flask run
 
-# In a separate terminal...
+# In a separate terminal window...
 cd frontend && npm run start
 ```
 
