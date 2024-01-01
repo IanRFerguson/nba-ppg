@@ -29,5 +29,5 @@ NBA_COLORS = {
     "UTA": {"line": "#002b5c", "background": "#f9a01b"},
     "CLE": {"line": "#860038", "background": "#041e42"},
     "WAS": {"line": "#e31837", "background": "#c4ced4"},
-    "CHA": {"line": "#1D1160", "background": "#00788C"}
+    "CHA": {"line": "#1D1160", "background": "#00788C"},
 }
