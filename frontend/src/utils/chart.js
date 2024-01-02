@@ -1,12 +1,15 @@
 import * as d3 from 'd3';
 
 
+// Remove all div contents
 export function clearChart() {
     console.log("Wiping D3 chart...")
     d3.select("#teamChart").selectAll("*").remove();
 }
 
 
+// Change the information we see at the top of the chart
+// TODO - This could be a component
 function setHeader(data, average) {
     var chartDiv = document.getElementById("teamChart");
     chartDiv.innerHTML += `<h2>${data.full_name}</h2>`;
@@ -14,6 +17,7 @@ function setHeader(data, average) {
 }
 
 
+// This is the main charting function that gets pulled into the App component
 export function drawChart(data) {
     /*   Parse incoming objects   */
     // Unpack response object

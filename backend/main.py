@@ -10,16 +10,19 @@ api = Flask(
 
 @api.route("/")
 def serve():
+    """
+    Main route - renders the React app post-build
+    """
+    
     return render_template("index.html")
 
 
 @api.route("/bingbong")
-def index():
+def bingbong():
     """
-    Landing route, only speaks the truth
-
     BING BONG
     """
+    
     return "<h1>Knicks by a million</h1>"
 
 

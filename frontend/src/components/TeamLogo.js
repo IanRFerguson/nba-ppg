@@ -1,6 +1,7 @@
 import * as NbaIcons from 'react-nba-logos';
 
-
+// We'll use this abstract function to handle changes
+// to the selected team name
 export function TeamLogo(team) {
     switch (team) {
         case 'MIA':
